@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;900&display=swap');
+
+* {
+    margin: 0;
+    font-family: 'Noto Sans JP',sans-serif;
+    font-weight: 300;
+    overflow: hidden;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: lightgray;
+}
+#startmenu, #game, #postGame {
+    margin: 1rem;
+}
+#game, #postGame {
+    display: none;
+}
+.gameplaytype {
+    font-size: .75rem;
+}
+#timeDisplay {
+    font-size: 3rem;
+}
+#makeDonutButton {
+    font-size: 1.2rem;
+}
+.willSlideInLeft {
+    margin-left: -50vw;
+    transition: margin-left 0.6s;
+}
+.willSlideInLeft.slideInLeft {
+    margin-left: 0;
+}
+#rightstuff { 
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    text-align: right;
+}
+.willSlideInRight {
+    margin-right: -50vw;
+    transition: margin-right 0.6s;
+}
+.willSlideInRight.slideInRight {
+    margin-right: 0;
+}
+.willSlideInRight div:not(#balanceMeterInterior) {
+    float:right;
+}
+
+.meter {
+    width: 5rem; 
+    height: 1rem; 
+    border: 1px solid black; 
+    background: darkgray;
+    border-radius: 1rem;
+}
+#meterInterior {
+    width: 0%; 
+    height: 100%;
+    background-color: magenta;
+}
+#balanceMeterInterior {
+    width: 0%; 
+    height: 100%;
+    background-color: green;
+}
+#graph {
+    border: 1px solid black; 
+    background: darkgray;
+    border-radius: 1rem;
+}

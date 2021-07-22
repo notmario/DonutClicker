@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donut Clicker</title>
+    <meta name="description" content="A bad clicker game, lol">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
+</head>
+
+<body>
+    <div id="startmenu">
+        <h1>Donut Clicker</h1>
+        <p>
+            A 5 minute game where you make donuts.
+        </p>
+        <br>
+        <button id="startgame" disabled>
+            Start Game
+        </button>
+        <br><br>
+        <p>Choose donut type</p>
+        <input type="radio" id="basicdonutselect" name="donuttype" value="Standard">
+        <label for="html">Standard</label>
+            <p class="gameplaytype">&nbsp;&nbsp;&nbsp;&nbsp;Standard Donut Clicker gameplay</p><br>
+        <p class="gameplaytype">More choices coming soon!</p><br>
+    </div>
+    <div id="game">
+        <h1 id="timeDisplay">Time left: </h1>
+        <h2 id="donutDisplay">Donuts: </h2> 
+        <div class="meter">
+            <div id="meterInterior"></div>
+        </div>
+        <h2 id="dollarsDisplay" class="willSlideInLeft">Dollars: $</h2><br>
+        <button id="makeDonutButton">Make Donut</button><br><br>
+        <button class="willSlideInLeft" id="donutMachine" title="Generate 0.5 donuts per second.">
+            Buy a Donut Machine (Cost: 50 donuts)
+        </button><br>
+        <button class="willSlideInLeft" id="donutDuplicator" title="Each click generates 0.1 more donuts.">
+            Buy a Donut Duplicator (Cost: 100 donuts)
+        </button><br>
+        <button class="willSlideInLeft" id="donutMarketUnlock" title="Buy and sell donuts on the donut market.">
+            Unlock the Donut Market (Cost: 250 donuts)
+        </button><br>
+        <button class="willSlideInLeft" id="donutBankUnlock" title="Lend donuts to the bank for long-term profits">
+            Unlock the Donut Bank (Cost: $50)
+        </button>
+            
+        </button>
+        <div id="rightstuff">
+            <h2 id="dpsdisplay" class="willSlideInRight">Donuts per second:</h2>
+            <h2 id="dpcdisplay" class="willSlideInRight">Donuts per click:</h2>
+            <div id="donutMarket" class="willSlideInRight">
+                <h2>Donut Market:</h2>
+                <button id="donutMarketBuyButton">Buy</button>
+                <button id="donutMarketSellButton">Sell</button><br>
+                <h3 id="donutPriceDisplay">Donut price: $5</h3>
+                <div>
+                    <canvas id="graph" width="300" height="200" style="float: right;">  
+                    </canvas>
+                </div>
+            </div>
+            <div id="donutBank" class="willSlideInRight">
+                <h2>Donut Bank:</h2>
+                <button id="donutBankDeposit">Deposit</button>
+                <button id="donutBankWithdraw">Withdraw ALL</button><br>
+                <h3 id="donutBankBalance">Account Balance:</h3>
+                <div class="meter">
+                    <div id="balanceMeterInterior"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="postGame">
+        <h1>The universe exploded.</h1>
+        <h2>How sad.</h2>
+        <h2 id="finalDonutDisplay">You got {} donuts.</h2>
+        <h2 id="finalDollarDisplay"></h2>
+        <br>
+        <button id="backToMenu">Back to menu</button>
+    </div>
+</body>
+<script src="index.js" defer></script>
+</html>
