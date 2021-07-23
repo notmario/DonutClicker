@@ -10,6 +10,9 @@ var timeUntilChartUpdate = 1;
 var nextPrice = 10;
 var donutBankUnlocked = false;
 var donutBankBalance = 0;
+var donutsPerSecondPerSecond = 0;
+var timeExtendCost = 25;
+var tempTimer = 0;
 
 const chartElem = document.getElementById("graph");
 const chartCtx = chartElem.getContext('2d');
@@ -68,10 +71,13 @@ for (element of document.getElementsByName("donuttype")) {
     element.onclick = selectDonutType;
 }
 
-const timesPerSecond = 20;
+const timesPerSecond = 50;
 
 function gameLoop() {
     timer -= 1/timesPerSecond;
+    timer += tempTimer / (timesPerSecond/2);
+    tempTimer -= tempTimer / (timesPerSecond/2);
+    donutsPerSecond += donutsPerSecondPerSecond/timesPerSecond;
     donuts+=donutsPerSecond/timesPerSecond;
     if (timer < 0) {
         clearInterval(gameLoopInterval);
@@ -99,6 +105,7 @@ function gameLoop() {
     if (donuts >= 100) {
         document.getElementById("donutMarketUnlock").classList.add("slideInLeft");
     }
+    document.getElementById("makeDonutButton").disabled = donutsPerClick == 0;
     document.getElementById("donutMachine").disabled = donuts < 50;
     document.getElementById("donutDuplicator").disabled = donuts < 100;
     document.getElementById("donutMarketUnlock").disabled = donuts < 250 || donutMarketUnlocked;
@@ -107,18 +114,26 @@ function gameLoop() {
     document.getElementById("donutMarketSellButton").disabled = donuts < 1;
     document.getElementById("donutBankWithdraw").disabled = donutBankBalance < 1;
     document.getElementById("donutBankDeposit").disabled = donuts < 1;
-    if (donutsPerSecond > 0) {
+    document.getElementById("donutExponent").disabled = dollars < 250;
+    document.getElementById("extendTimer").disabled = dollars < timeExtendCost;
+    if (donutsPerSecond != 0) {
         document.getElementById("dpsdisplay").classList.add("slideInRight");
     }
     if (donutsPerClick != 1) {
         document.getElementById("dpcdisplay").classList.add("slideInRight");
-    }donutMarket
+    }
+    if (dollars >= 50) {
+        document.getElementById("donutExponent").classList.add("slideInLeft");
+    }
     if (donutMarketUnlocked) {
         document.getElementById("donutMarket").classList.add("slideInRight");
         document.getElementById("dollarsDisplay").classList.add("slideInLeft");
         document.getElementById("donutBankUnlock").classList.add("slideInLeft");
+        document.getElementById("extendTimer").classList.add("slideInLeft");
         timeUntilChartUpdate -= 1/timesPerSecond;
         if (timeUntilChartUpdate < 0) {
+            nextPrice *= 0.5+(Math.random()+Math.random()+Math.random()+Math.random()+Math.random()+Math.random()+Math.random()+Math.random()+Math.random()+Math.random())/10
+            if (nextPrice < 0.1) nextPrice = 0.1;
             timeUntilChartUpdate = .5;
             chartData.push(nextPrice);
             chartData.shift();
@@ -144,10 +159,35 @@ document.getElementById("startgame").onclick = function() {
         document.getElementById("startmenu").style.display = "none";
         timer = totalTime
         donuts = 0;
+        if (selectedDonutType == "Time") donuts = -100;
         donutsPerSecond = 0;
+        if (selectedDonutType == "Poo") donutsPerSecond = -0.2;
+        if (selectedDonutType == "Passive") donutsPerSecond = 10;
         donutsPerClick = 1;
+        if (selectedDonutType == "Passive") donutsPerClick = 0;
         timeUntilChartUpdate = .5;
         nextPrice = 10;
+        donutMarketUnlocked = false;
+        if (selectedDonutType == "Money") donutMarketUnlocked = true;
+        dollars = 0;
+        if (selectedDonutType == "Money") dollars = -50;
+        donutBankUnlocked = false;
+        donutBankBalance = 0;
+        donutsPerSecondPerSecond = 0;
+        timeExtendCost = 25;
+        tempTimer = 0;
+        if (selectedDonutType == "Time") tempTimer = 30;
+        document.getElementById("donutMachine").classList.remove("slideInLeft");
+        document.getElementById("donutDuplicator").classList.remove("slideInLeft");
+        document.getElementById("donutMarketUnlock").classList.remove("slideInLeft");
+        document.getElementById("dpsdisplay").classList.remove("slideInRight");
+        document.getElementById("dpcdisplay").classList.remove("slideInRight");
+        document.getElementById("donutMarket").classList.remove("slideInRight");
+        document.getElementById("dollarsDisplay").classList.remove("slideInLeft");
+        document.getElementById("donutBankUnlock").classList.remove("slideInLeft");
+        document.getElementById("donutBank").classList.remove("slideInRight");
+        document.getElementById("donutExponent").classList.remove("slideInLeft");
+        document.getElementById("extendTimer").classList.remove("slideInLeft");
         gameLoopInterval = setInterval(gameLoop, 1000/timesPerSecond);
         document.getElementById("donutDisplay").innerText = `Donuts: ${Math.floor(donuts)}`;
         document.getElementById("dpsdisplay").innerText = `Donuts per second: ${Math.floor(donutsPerSecond*10)/10}`;
@@ -192,17 +232,15 @@ document.getElementById("donutMarketBuyButton").onclick = ()=>{
     if (dollars > chartData[chartData.length-1]) {
         donuts += 1;
         dollars -= chartData[chartData.length-1];
-        nextPrice += 0.5;
+        nextPrice += (Math.random()+Math.random())/2;
     }
 }
 document.getElementById("donutMarketSellButton").onclick = ()=>{
     if (donuts >= 1) {
         donuts--;
         dollars += chartData[chartData.length-1];
-        nextPrice -= 0.5;
-        if (nextPrice < 1) {
-            nextPrice = 1;
-        }
+        nextPrice -= (Math.random()+Math.random())/2;
+        if (nextPrice < 0.1) nextPrice = 0.1;
     }
 }
 document.getElementById("donutBankUnlock").onclick = ()=>{
@@ -221,5 +259,19 @@ document.getElementById("donutBankWithdraw").onclick = ()=>{
     if (donutBankBalance >= 1) {
         donuts+=Math.floor(donutBankBalance);
         donutBankBalance = 0;
+    }
+}
+document.getElementById("donutExponent").onclick = ()=>{
+    if (dollars >= 250) {
+        donutsPerSecondPerSecond+=0.1;
+        dollars -= 250;
+    }
+}
+document.getElementById("extendTimer").onclick = ()=>{
+    if (dollars >= timeExtendCost) {
+        tempTimer += 30;
+        dollars -= timeExtendCost;
+        timeExtendCost *= 2;
+        document.getElementById("extendTimer").innerText = `Extend time by 30s (Cost: ${"$"}${timeExtendCost}, x2 every purchase)`
     }
 }

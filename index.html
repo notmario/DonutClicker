@@ -24,9 +24,21 @@
         <br><br>
         <p>Choose donut type</p>
         <input type="radio" id="basicdonutselect" name="donuttype" value="Standard">
-        <label for="html">Standard</label>
-            <p class="gameplaytype">&nbsp;&nbsp;&nbsp;&nbsp;Standard Donut Clicker gameplay</p><br>
-        <p class="gameplaytype">More choices coming soon!</p><br>
+                <label for="html">Standard</label>
+                <p class="gameplaytype">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Standard Donut Clicker gameplay</p>
+        <input type="radio" id="poodonutselect" name="donuttype" value="Poo">
+                <label for="html">Poo</label>
+                <p class="gameplaytype">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lose 1 donut every 5 seconds</p>
+        <input type="radio" id="passivedonutselect" name="donuttype" value="Passive">
+                <label for="html">Passive</label>
+                <p class="gameplaytype">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gain 0 donuts per click, but 10 donuts per second</p>
+        <input type="radio" id="timedonutselect" name="donuttype" value="Time">
+                <label for="html">Time</label>
+                <p class="gameplaytype">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start with an extra 30 seconds, but you're in debt</p>
+        <input type="radio" id="moneydonutselect" name="donuttype" value="Money">
+                <label for="html">Money</label>
+                <p class="gameplaytype">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Start with donut market unlocked, but you have $50 less</p>
+        <br><p class="gameplaytype">More choices coming soon!</p><br>
     </div>
     <div id="game">
         <h1 id="timeDisplay">Time left: </h1>
@@ -45,9 +57,19 @@
         <button class="willSlideInLeft" id="donutMarketUnlock" title="Buy and sell donuts on the donut market.">
             Unlock the Donut Market (Cost: 250 donuts)
         </button><br>
+        <button class="willSlideInLeft" id="extendTimer" title="Time is money, after all">
+            Extend time by 30s (Cost: $25, x2 every purchase)
+        </button><br>
         <button class="willSlideInLeft" id="donutBankUnlock" title="Lend donuts to the bank for long-term profits">
             Unlock the Donut Bank (Cost: $50)
-        </button>
+        </button><br>
+        <button class="willSlideInLeft" id="donutExponent" title="Gain 0.1 donuts per second per second">
+            Buy an Exponential Donut Generator (Cost: $250)
+        </button><br>
+        <!-- Maybe later 
+        <button class="willSlideInLeft" id="robotArm" title="Clicks automatically every second">
+            Buy a Robot Arm (Cost: $250)
+        </button> -->
             
         </button>
         <div id="rightstuff">
@@ -79,6 +101,11 @@
         <h2>How sad.</h2>
         <h2 id="finalDonutDisplay">You got {} donuts.</h2>
         <h2 id="finalDollarDisplay"></h2>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <br>
         <button id="backToMenu">Back to menu</button>
     </div>
